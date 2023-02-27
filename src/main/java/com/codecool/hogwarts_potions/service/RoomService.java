@@ -2,13 +2,12 @@ package com.codecool.hogwarts_potions.service;
 
 import com.codecool.hogwarts_potions.model.PetType;
 import com.codecool.hogwarts_potions.model.Room;
-import com.codecool.hogwarts_potions.model.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class RoomService {
@@ -61,16 +60,13 @@ public class RoomService {
     }
 
     public List<Room> getRoomsForRatOwners() {
-        List<Room> safeRooms = new ArrayList<>();
-        for (Room room : roomRepository.findAll()) {
-            for (Student student : room.getResidents()) {
-                if (student.getPetType() == PetType.CAT || student.getPetType() == PetType.OWL) {
-                    continue;
-                }
-                safeRooms.add(room);
-            }
-        }
+        return roomRepository.findAll().stream()
+                .filter(this::isRatSafe)
+                .collect(Collectors.toList());
+    }
 
-        return safeRooms;
+    private boolean isRatSafe(Room room) {
+        return room.getResidents().stream()
+                .anyMatch(resident -> resident.getPetType() != PetType.CAT && resident.getPetType() != PetType.OWL);
     }
 }
