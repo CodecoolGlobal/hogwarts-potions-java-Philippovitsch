@@ -2,6 +2,7 @@ package com.codecool.hogwarts_potions.service;
 
 import com.codecool.hogwarts_potions.model.PetType;
 import com.codecool.hogwarts_potions.model.Room;
+import com.codecool.hogwarts_potions.service.repositories.RoomRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
