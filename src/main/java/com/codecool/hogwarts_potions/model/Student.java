@@ -18,4 +18,15 @@ public class Student {
     private String name;
     private HouseType houseType;
     private PetType petType;
+
+    @Override
+    public String toString() {
+        return String.format(
+                "id: %s, name: %s, houseType: %s, petType: %s"
+                , id
+                , name
+                , houseType
+                , petType
+        );
+    }
 }
