@@ -77,7 +77,7 @@ public class PotionService {
     private BrewingStatus getBrewingStatus(Potion potion) {
         if (potion.getIngredients().size() < 5) {
             return BrewingStatus.BREW;
-        } else if (potion.getIngredients() != null && isKnownRecipe(potion.getIngredients())) {
+        } else if (isKnownRecipe(potion.getIngredients())) {
             return BrewingStatus.REPLICA;
         } else {
             return BrewingStatus.DISCOVERY;
