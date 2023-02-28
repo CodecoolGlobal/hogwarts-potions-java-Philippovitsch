@@ -19,7 +19,7 @@ public class Recipe {
     private String name;
     @OneToOne
     private Student brewer;
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private Set<Ingredient> ingredients;
 
     @Override
