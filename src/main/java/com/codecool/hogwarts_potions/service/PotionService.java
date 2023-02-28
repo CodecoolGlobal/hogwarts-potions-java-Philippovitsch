@@ -31,6 +31,12 @@ public class PotionService {
         return potionRepository.findAll();
     }
 
+    public List<Potion> getPotionsById(Long studentId) {
+        return potionRepository.findAll().stream()
+                .filter(potion -> potion.getBrewer().getId().equals(studentId))
+                .collect(Collectors.toList());
+    }
+
     public void addPotion(Potion potion) {
         BrewingStatus brewingStatus = getBrewingStatus(potion);
         potion.setBrewingStatus(brewingStatus);
@@ -51,7 +57,7 @@ public class PotionService {
             potionName = String.format(
                     "%s's discovery #%s"
                     , potionBrewer.getName()
-                    , getNumberOfExistingPotions(potionDTO.getStudentId())
+                    , getPotionsById(potionDTO.getStudentId()).size()
             );
             recipe = Recipe.builder()
                     .name(potionName)
@@ -93,12 +99,6 @@ public class PotionService {
             }
         }
         return false;
-    }
-
-    private long getNumberOfExistingPotions(Long studentId) {
-        return potionRepository.findAll().stream()
-                .filter(potion -> potion.getBrewer().getId().equals(studentId))
-                .count();
     }
 
 }

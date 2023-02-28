@@ -24,6 +24,11 @@ public class PotionController {
         return potionService.getAllPotions();
     }
 
+    @GetMapping("{studentId}")
+    public List<Potion> getPotionsById(@PathVariable("studentId") Long studentId) {
+        return potionService.getPotionsById(studentId);
+    }
+
     @PostMapping
     public Potion brewPotion(@RequestBody PotionDTO potionDTO) {
         return potionService.brewPotion(potionDTO);
