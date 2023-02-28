@@ -58,11 +58,12 @@ public class DataCreator {
         Set<Ingredient> ingredientsList1 = new HashSet<>(Arrays.asList(ingredient1, ingredient2, ingredient3, ingredient4, ingredient5));
         Set<Ingredient> ingredientsList2 = new HashSet<>(Arrays.asList(ingredient2, ingredient3, ingredient4, ingredient5, ingredient6));
         Set<Ingredient> ingredientsList3 = new HashSet<>(Arrays.asList(ingredient1, ingredient2, ingredient3));
+        Set<Ingredient> ingredientsList4 = new HashSet<>(Arrays.asList(ingredient4, ingredient5, ingredient6));
 
         Recipe recipe1 = Recipe.builder().name("Recipe1").brewer(student1).ingredients(ingredientsList1).build();
         Recipe recipe2 = Recipe.builder().name("Recipe2").brewer(student2).ingredients(ingredientsList2).build();
-        Potion potion1 = Potion.builder().name("Potion1").brewer(student1).ingredients(ingredientsList1).recipe(recipe1).build();
-        Potion potion2 = Potion.builder().name("Potion2").brewer(student2).ingredients(ingredientsList3).recipe(recipe2).build();
+        Potion potion1 = Potion.builder().name("Potion1").brewer(student1).ingredients(ingredientsList3).build();
+        Potion potion2 = Potion.builder().name("Potion2").brewer(student2).ingredients(ingredientsList4).build();
 
         ingredientService.addIngredient(ingredient1);
         ingredientService.addIngredient(ingredient2);

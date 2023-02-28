@@ -1,5 +1,6 @@
 package com.codecool.hogwarts_potions.controller;
 
+import com.codecool.hogwarts_potions.model.dto.PotionDTO;
 import com.codecool.hogwarts_potions.model.Potion;
 import com.codecool.hogwarts_potions.service.PotionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,5 +22,10 @@ public class PotionController {
     @GetMapping
     public List<Potion> getAllPotions() {
         return potionService.getAllPotions();
+    }
+
+    @PostMapping
+    public Potion brewPotion(@RequestBody PotionDTO potionDTO) {
+        return potionService.brewPotion(potionDTO);
     }
 }
