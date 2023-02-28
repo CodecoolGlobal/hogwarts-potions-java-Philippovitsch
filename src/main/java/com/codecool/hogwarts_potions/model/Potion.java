@@ -8,6 +8,7 @@ import java.util.Set;
 @Entity
 @Getter
 @Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Potion {
@@ -18,7 +19,7 @@ public class Potion {
     private String name;
     @OneToOne
     private Student brewer;
-    @OneToMany
+    @ManyToMany
     private Set<Ingredient> ingredients;
     private BrewingStatus brewingStatus;
     @OneToOne

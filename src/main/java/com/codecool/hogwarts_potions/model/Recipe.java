@@ -19,7 +19,7 @@ public class Recipe {
     private String name;
     @OneToOne
     private Student brewer;
-    @OneToMany
+    @ManyToMany
     private Set<Ingredient> ingredients;
 
     @Override
