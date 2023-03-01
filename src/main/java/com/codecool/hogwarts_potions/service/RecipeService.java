@@ -35,6 +35,12 @@ public class RecipeService {
         return null;
     }
 
+    public List<Recipe> getRecipesById(Long studentId) {
+        return getAllRecipes().stream()
+                .filter(recipe -> recipe.getBrewer().getId().equals(studentId))
+                .collect(Collectors.toList());
+    }
+
     public void addRecipe(Recipe recipe) {
         recipeRepository.save(recipe);
     }

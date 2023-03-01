@@ -37,15 +37,9 @@ public class PotionService {
                 .collect(Collectors.toList());
     }
 
-    public void addPotion(Potion potion) {
-        BrewingStatus brewingStatus = getBrewingStatus(potion);
-        potion.setBrewingStatus(brewingStatus);
-        potionRepository.save(potion);
-    }
-
-    public Potion brewPotion(PotionDTO potionDTO){
+    public Potion addPotion(PotionDTO potionDTO){
         Student potionBrewer = studentService.getStudentById(potionDTO.getStudentId());
-        String potionName = String.format("%s's potion", potionBrewer.getName());
+        String potionName = potionDTO.getPotionName();
         Set<Ingredient> potionIngredients = getIngredients(potionDTO.getIngredients());
         Potion potion = Potion.builder().brewer(potionBrewer).name(potionName).ingredients(potionIngredients).build();
 
@@ -54,17 +48,16 @@ public class PotionService {
 
         Recipe recipe = null;
         if (brewingStatus == BrewingStatus.DISCOVERY) {
-            potionName = String.format(
+            String recipeName = String.format(
                     "%s's discovery #%s"
                     , potionBrewer.getName()
-                    , getPotionsById(potionDTO.getStudentId()).size()
+                    , recipeService.getRecipesById(potionDTO.getStudentId()).size() + 1
             );
             recipe = Recipe.builder()
-                    .name(potionName)
+                    .name(recipeName)
                     .brewer(potionBrewer)
                     .ingredients(potionIngredients)
                     .build();
-            potion.setName(potionName);
             recipeService.addRecipe(recipe);
         } else if (brewingStatus == BrewingStatus.REPLICA) {
             recipe = recipeService.getRecipeByIngredients(potionIngredients);

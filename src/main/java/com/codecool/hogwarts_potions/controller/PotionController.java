@@ -31,6 +31,6 @@ public class PotionController {
 
     @PostMapping
     public Potion brewPotion(@RequestBody PotionDTO potionDTO) {
-        return potionService.brewPotion(potionDTO);
+        return potionService.addPotion(potionDTO);
     }
 }
