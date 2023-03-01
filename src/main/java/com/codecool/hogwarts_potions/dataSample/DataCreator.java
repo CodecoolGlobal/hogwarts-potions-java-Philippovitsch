@@ -1,7 +1,6 @@
 package com.codecool.hogwarts_potions.dataSample;
 
 import com.codecool.hogwarts_potions.model.*;
-import com.codecool.hogwarts_potions.model.dto.PotionDTO;
 import com.codecool.hogwarts_potions.service.*;
 import org.springframework.stereotype.Component;
 
@@ -58,13 +57,9 @@ public class DataCreator {
 
         Set<Ingredient> ingredientsList1 = new HashSet<>(Arrays.asList(ingredient1, ingredient2, ingredient3, ingredient4, ingredient5));
         Set<Ingredient> ingredientsList2 = new HashSet<>(Arrays.asList(ingredient2, ingredient3, ingredient4, ingredient5, ingredient6));
-//      List<String> ingredientsList3 = Arrays.asList("Avocado", "Bone", "DragonLiver");
-//      List<String> ingredientsList4 = Arrays.asList("GingerRoot", "HorseHair", "SnakeWeed");
 
         Recipe recipe1 = Recipe.builder().name("Student1's discovery #1").brewer(student1).ingredients(ingredientsList1).build();
         Recipe recipe2 = Recipe.builder().name("Student2's discovery #1").brewer(student2).ingredients(ingredientsList2).build();
-//      PotionDTO potion1 = PotionDTO.builder().name("Potion Student1").studentId(1L).ingredients(ingredientsList3).build();
-//      PotionDTO potion2 = PotionDTO.builder().name("Potion Student1").studentId(1L).ingredients(ingredientsList4).build();
 
         ingredientService.addIngredient(ingredient1);
         ingredientService.addIngredient(ingredient2);
@@ -75,7 +70,8 @@ public class DataCreator {
         ingredientService.addIngredient(ingredient7);
         recipeService.addRecipe(recipe1);
         recipeService.addRecipe(recipe2);
-//      potionService.addPotion(potion1);
-//      potionService.addPotion(potion2);
+
+        potionService.createNewPotion(1L);
+        potionService.createNewPotion(2L);
     }
 }

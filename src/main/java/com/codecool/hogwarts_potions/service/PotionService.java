@@ -67,6 +67,14 @@ public class PotionService {
         return potion;
     }
 
+    public Potion createNewPotion(Long studentId) {
+        Student student = studentService.getStudentById(studentId);
+        BrewingStatus brewingStatus = BrewingStatus.BREW;
+        Potion potion = Potion.builder().brewer(student).brewingStatus(brewingStatus).build();
+        potionRepository.save(potion);
+        return potion;
+    }
+
     private Set<Ingredient> getIngredients(List<String> ingredients) {
         return ingredients.stream()
                 .map(ingredientService::getIngredientByName)
@@ -93,5 +101,4 @@ public class PotionService {
         }
         return false;
     }
-
 }
