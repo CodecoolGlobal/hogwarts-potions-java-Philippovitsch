@@ -52,7 +52,7 @@ public class DataCreator {
         ingredientService.createNewIngredient("SnakeWeed");
         ingredientService.createNewIngredient("UnicornHair");
 
-        List<String> ingredientsList1 = Arrays.asList("Avocado", "Bode", "DragonLiver", "GingerRoot", "HorseHair");
+        List<String> ingredientsList1 = Arrays.asList("Avocado", "Bone", "DragonLiver", "GingerRoot", "HorseHair");
         List<String> ingredientsList2 = Arrays.asList("Bone", "DragonLiver", "GingerRoot", "HorseHair", "SnakeWeed");
         PotionDTO potionDTO1 = PotionDTO.builder().potionName("TestPotion1").studentId(1L).ingredients(ingredientsList1).build();
         PotionDTO potionDTO2 = PotionDTO.builder().potionName("TestPotion2").studentId(2L).ingredients(ingredientsList2).build();
