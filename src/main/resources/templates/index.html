@@ -8,8 +8,33 @@
     </head>
 
     <body>
-        <div class="content">
+        <header class="header">
             <h1>Welcome to Hogwarts Potions</h1>
+        </header>
+        <div class="content">
+            <div class="box">
+                <p><b>Brew a potion:</b></p>
+                <form>
+                    <div class="table-row">
+                        <label class="table-cell" for="student-id">Student-ID:</label>
+                        <input class="table-cell w-200" id="student-id" type="number" min="1" required>
+                    </div>
+                    <div class="table-row">
+                        <label class="table-cell" for="ingredients">Ingredient Name:</label>
+                        <select id="ingredients" class="w-200" required>
+                            <option value="choose-ingredient" selected disabled>Choose ingredient</option>
+                        </select>
+                    </div>
+                    <div>
+                        <input type="button" class="button" id="add-ingredient" value="Add ingredient">
+                        <input type="button" class="button" id="help" value="Help!">
+                    </div>
+                </form>
+            </div>
+            <div id="results"></div>
         </div>
+        <footer class="footer">
+            <p>&copy; 2023 by <b>Hogwarts Corporation</b></p>
+        </footer>
     </body>
 </html>
