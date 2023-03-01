@@ -65,3 +65,10 @@ body {
 .w-200 {
     width: 200px;
 }
+
+.message {
+    text-align: center;
+    font-style: italic;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
