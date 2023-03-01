@@ -73,7 +73,8 @@ public class PotionService {
     public Potion createNewPotion(Long studentId) {
         Student student = studentService.getStudentById(studentId);
         BrewingStatus brewingStatus = BrewingStatus.BREW;
-        Potion potion = Potion.builder().brewer(student).brewingStatus(brewingStatus).build();
+        String potionName = String.format("%s's potion", student.getName());
+        Potion potion = Potion.builder().name(potionName).brewer(student).brewingStatus(brewingStatus).build();
         potionRepository.save(potion);
         return potion;
     }
@@ -87,6 +88,12 @@ public class PotionService {
         potion.setIngredients(existingIngredients);
         BrewingStatus brewingStatus = getBrewingStatus(potion);
         potion.setBrewingStatus(brewingStatus);
+
+        if (brewingStatus == BrewingStatus.REPLICA) {
+            Recipe recipe = recipeService.getRecipeByIngredients(existingIngredients);
+            potion.setRecipe(recipe);
+        }
+
         potionRepository.save(potion);
 
         return potion;
