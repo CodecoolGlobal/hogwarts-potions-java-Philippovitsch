@@ -28,4 +28,14 @@ public class IngredientService {
     public void addIngredient(Ingredient ingredient) {
         ingredientRepository.save(ingredient);
     }
+
+    public Ingredient createNewIngredient(String ingredientName) {
+        Ingredient ingredient = Ingredient.builder().name(ingredientName).build();
+        addIngredient(ingredient);
+        return ingredient;
+    }
+
+    public boolean isExisting(String ingredientName) {
+        return ingredientRepository.existsByName(ingredientName);
+    }
 }

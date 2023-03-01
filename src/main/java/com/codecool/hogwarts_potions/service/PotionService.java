@@ -1,12 +1,14 @@
 package com.codecool.hogwarts_potions.service;
 
 import com.codecool.hogwarts_potions.model.*;
+import com.codecool.hogwarts_potions.model.dto.IngredientDTO;
 import com.codecool.hogwarts_potions.model.dto.PotionDTO;
 import com.codecool.hogwarts_potions.service.repositories.PotionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -31,7 +33,7 @@ public class PotionService {
         return potionRepository.findAll();
     }
 
-    public List<Potion> getPotionsById(Long studentId) {
+    public List<Potion> getPotionsByStudentId(Long studentId) {
         return potionRepository.findAll().stream()
                 .filter(potion -> potion.getBrewer().getId().equals(studentId))
                 .collect(Collectors.toList());
@@ -75,6 +77,19 @@ public class PotionService {
         return potion;
     }
 
+    public Potion addIngredient(Long potionId, IngredientDTO ingredientDTO) {
+        Potion potion = getPotionByPotionId(potionId);
+        Ingredient newIngredient = getNewIngredient(ingredientDTO.getIngredientName());
+        Set<Ingredient> existingIngredients = potion.getIngredients();
+
+        existingIngredients.add(newIngredient);
+        potion.setIngredients(existingIngredients);
+
+        potionRepository.save(potion);
+
+        return potion;
+    }
+
     private Set<Ingredient> getIngredients(List<String> ingredients) {
         return ingredients.stream()
                 .map(ingredientService::getIngredientByName)
@@ -100,5 +115,20 @@ public class PotionService {
             }
         }
         return false;
+    }
+
+    private Potion getPotionByPotionId(Long potionId) {
+        Optional<Potion> potion = potionRepository.findById(potionId);
+        if (potion.isEmpty()) {
+            return null;
+        }
+        return potion.get();
+    }
+
+    private Ingredient getNewIngredient(String ingredientName) {
+        if (ingredientService.isExisting(ingredientName)) {
+            return ingredientService.getIngredientByName(ingredientName);
+        }
+        return ingredientService.createNewIngredient(ingredientName);
     }
 }

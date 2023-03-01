@@ -19,7 +19,7 @@ public class Potion {
     private String name;
     @OneToOne
     private Student brewer;
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private Set<Ingredient> ingredients;
     private BrewingStatus brewingStatus;
     @OneToOne
