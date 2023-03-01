@@ -1,5 +1,6 @@
 package com.codecool.hogwarts_potions.controller;
 
+import com.codecool.hogwarts_potions.model.Recipe;
 import com.codecool.hogwarts_potions.model.dto.IngredientDTO;
 import com.codecool.hogwarts_potions.model.dto.PotionDTO;
 import com.codecool.hogwarts_potions.model.Potion;
@@ -43,5 +44,10 @@ public class PotionController {
     @PutMapping("/{potionId}/add")
     public Potion addIngredient(@PathVariable("potionId") Long potionId, @RequestBody IngredientDTO ingredientDTO) {
         return potionService.addIngredient(potionId, ingredientDTO);
+    }
+
+    @GetMapping("/{potionId}/help")
+    public List<Recipe> getSimilarRecipes(@PathVariable("potionId") Long potionId) {
+        return potionService.getSimilarRecipes(potionId);
     }
 }

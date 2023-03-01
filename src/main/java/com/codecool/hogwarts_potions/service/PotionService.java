@@ -7,6 +7,7 @@ import com.codecool.hogwarts_potions.service.repositories.PotionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -89,6 +90,24 @@ public class PotionService {
         potionRepository.save(potion);
 
         return potion;
+    }
+
+    public List<Recipe> getSimilarRecipes(Long potionId) {
+        Potion potion = getPotionByPotionId(potionId);
+        Set<Ingredient> potionIngredients = potion.getIngredients();
+        return compareIngredients(potionIngredients);
+    }
+
+    private List<Recipe> compareIngredients(Set<Ingredient> ingredients) {
+        List<Recipe> similarRecipes = new ArrayList<>();
+        for (Recipe recipe : recipeService.getAllRecipes()) {
+            Set<String> recipeIngredients = recipe.getIngredients().stream().map(Ingredient::getName).collect(Collectors.toSet());
+            Set<String> potionIngredients = ingredients.stream().map(Ingredient::getName).collect(Collectors.toSet());
+            if (recipeIngredients.containsAll(potionIngredients)) {
+                similarRecipes.add(recipe);
+            }
+        }
+        return similarRecipes;
     }
 
     private Set<Ingredient> getIngredients(List<String> ingredients) {
