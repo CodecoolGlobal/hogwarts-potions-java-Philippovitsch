@@ -84,7 +84,8 @@ public class PotionService {
 
         existingIngredients.add(newIngredient);
         potion.setIngredients(existingIngredients);
-
+        BrewingStatus brewingStatus = getBrewingStatus(potion);
+        potion.setBrewingStatus(brewingStatus);
         potionRepository.save(potion);
 
         return potion;
