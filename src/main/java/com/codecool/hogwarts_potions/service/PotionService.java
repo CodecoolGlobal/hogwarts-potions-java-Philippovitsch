@@ -98,6 +98,12 @@ public class PotionService {
         return compareIngredients(potionIngredients);
     }
 
+    public Potion deletePotionById(Long potionId) {
+        Potion potion = getPotionByPotionId(potionId);
+        potionRepository.deleteById(potionId);
+        return potion;
+    }
+
     private List<Recipe> compareIngredients(Set<Ingredient> ingredients) {
         List<Recipe> similarRecipes = new ArrayList<>();
         for (Recipe recipe : recipeService.getAllRecipes()) {

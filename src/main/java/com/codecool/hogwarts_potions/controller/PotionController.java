@@ -50,4 +50,9 @@ public class PotionController {
     public List<Recipe> getSimilarRecipes(@PathVariable("potionId") Long potionId) {
         return potionService.getSimilarRecipes(potionId);
     }
+
+    @DeleteMapping("/{potionId}")
+    public Potion deletePotion(@PathVariable("potionId") Long potionId) {
+        return potionService.deletePotionById(potionId);
+    }
 }
