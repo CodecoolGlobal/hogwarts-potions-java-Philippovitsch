@@ -42,7 +42,7 @@ public class PotionService {
 
     public Potion addPotion(PotionDTO potionDTO){
         Student potionBrewer = studentService.getStudentById(potionDTO.getStudentId());
-        String potionName = potionDTO.getPotionName();
+        String potionName = String.format("%s's potion", potionBrewer.getName());
         Set<Ingredient> potionIngredients = getIngredients(potionDTO.getIngredients());
         Potion potion = Potion.builder().brewer(potionBrewer).name(potionName).ingredients(potionIngredients).build();
 
@@ -51,11 +51,7 @@ public class PotionService {
 
         Recipe recipe = null;
         if (brewingStatus == BrewingStatus.DISCOVERY) {
-            String recipeName = String.format(
-                    "%s's discovery #%s"
-                    , potionBrewer.getName()
-                    , recipeService.getRecipesById(potionDTO.getStudentId()).size() + 1
-            );
+            String recipeName = potionDTO.getPotionName();
             recipe = Recipe.builder()
                     .name(recipeName)
                     .brewer(potionBrewer)
