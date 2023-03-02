@@ -3,8 +3,10 @@ let potionId = null;
 async function init() {
     const addIngredientButton = document.querySelector("#add-ingredient");
     const helpButton = document.querySelector("#help");
+    const deleteButton = document.querySelector("#delete");
     addIngredientButton.addEventListener("click", addIngredient);
     helpButton.addEventListener("click", displaySimilarRecipes);
+    deleteButton.addEventListener("click", () => resetPage(true));
     displayMessage("Create a potion by entering a student id and adding the first ingredient.");
     const ingredients = await getData("http://localhost:8080/ingredients");
     displayAvailableIngredients(ingredients);
@@ -78,8 +80,8 @@ async function isValidStudent(studentId) {
 }
 
 function toggleStudentIdInput() {
-    const inputStatus = document.querySelector("#student-id").disabled
-    document.querySelector("#student-id").disabled = !inputStatus;
+    const inputField= document.querySelector("#student-id");
+    inputField.disabled = potionId !== null;
 }
 
 async function createNewPotion(studentId) {
@@ -128,7 +130,7 @@ function displaySaveMenu(potion) {
     const saveDiscoveredRecipeButton = document.querySelector("#save-discovered-recipe");
     const resetDiscoveredRecipeButton = document.querySelector("#reset-discovered-recipe");
     saveDiscoveredRecipeButton.addEventListener("click", () => saveRecipe(potion));
-    resetDiscoveredRecipeButton.addEventListener("click", resetPage);
+    resetDiscoveredRecipeButton.addEventListener("click", () => resetPage(false));
 }
 
 async function saveRecipe(potion) {
@@ -150,8 +152,19 @@ async function saveRecipe(potion) {
     messageContainer.textContent = "Recipe saved!";
 }
 
-function resetPage() {
-    console.log("reset");
+async function resetPage(deletePotion) {
+    const studentId = document.querySelector("#student-id");
+    const ingredient = document.querySelector("#ingredients");
+
+    if (deletePotion && potionId !== null) {
+        await sendData(`http://localhost:8080/potions/${potionId}`, "DELETE");
+    }
+
+    potionId = null;
+    studentId.value = "";
+    ingredient.value = "choose-ingredient";
+    toggleStudentIdInput();
+    displayMessage("Create a potion by entering a student id and adding the first ingredient.");
 }
 
 async function displaySimilarRecipes() {
