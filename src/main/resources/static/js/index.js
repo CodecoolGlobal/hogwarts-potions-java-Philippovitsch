@@ -149,7 +149,12 @@ function getRandomSuccessMessage() {
 
 async function saveRecipe(potion) {
     const studentId = document.querySelector("#student-id").value;
-    const potionName = document.querySelector("#recipe-name").value;
+    const recipeName = document.querySelector("#recipe-name").value;
+
+    if (recipeName === "") {
+        alert("Please enter a recipe name!");
+        return;
+    }
 
     const ingredients = [];
     potion.ingredients.forEach(ingredient => {
@@ -157,7 +162,7 @@ async function saveRecipe(potion) {
     });
 
     const data = {
-        "potionName": potionName,
+        "potionName": recipeName,
         "studentId": studentId,
         "ingredients": ingredients
     };
