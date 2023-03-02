@@ -1,5 +1,9 @@
 # Hogwarts Potions
 
+This is a solo project from the 10th out of 12 month of the `Advanced - Java Spring` module of the Codecool curriculum.
+It is a Harry Potter themed project, where you can manage the students and rooms of the Hogwarts school. Furthermore,
+students can take notes of their potions while they are brewing and look for known brewing recipes.
+
 ## Project description <em>(by Codecool)</em>
 
 > What if I told you that magic is real? What if I told you that wizards, witches, and everything from the world of Harry
