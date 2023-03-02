@@ -197,8 +197,9 @@ async function displaySimilarRecipes() {
         const recipeContainer = document.createElement("div");
         recipeContainer.classList.add("recipe");
         recipeContainer.innerHTML = `
-            <p>Name: ${recipe.name}</p>
-            <p>Ingredients:</p>
+            <p><em>Name:</em> ${recipe.name}</p>
+            <p><em>Brewer:</em> ${recipe.brewer.name}</p>
+            <p><em>Ingredients:</em></p>
             <ul>${displayIngredients(recipe.ingredients)}</ul>
         `;
         resultsContainer.append(recipeContainer);
