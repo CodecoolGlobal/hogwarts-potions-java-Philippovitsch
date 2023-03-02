@@ -125,7 +125,7 @@ function displaySaveMenu(potion) {
     const saveRecipeContainer = document.createElement("div");
     saveRecipeContainer.classList.add("message");
     saveRecipeContainer.innerHTML = `
-        <p>You discovered a new recipe! Do you want to save it?</p>
+        <p>${getRandomSuccessMessage()}</p>
         <form>
             <label for="recipe-name">Recipe name: </label>
             <input type="text" id="recipe-name"><br>
@@ -139,6 +139,12 @@ function displaySaveMenu(potion) {
     const resetDiscoveredRecipeButton = document.querySelector("#reset-discovered-recipe");
     saveDiscoveredRecipeButton.addEventListener("click", () => saveRecipe(potion));
     resetDiscoveredRecipeButton.addEventListener("click", () => resetPage(false));
+}
+
+function getRandomSuccessMessage() {
+    const randomWords = ["Hurray", "Whee", "Yippee", "Whoopee", "Yay"];
+    const randomWord = randomWords[Math.floor((Math.random() * randomWords.length))];
+    return `${randomWord}! You discovered a new recipe! Do you want to save it?`;
 }
 
 async function saveRecipe(potion) {
