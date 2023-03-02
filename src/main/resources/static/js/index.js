@@ -68,6 +68,9 @@ async function addIngredient() {
     const potion = await sendData(`http://localhost:8080/potions/${potionId}/add`, "PUT", data);
 
     displayPotion(potion);
+    if (potion.brewingStatus === "DISCOVERY") {
+        displaySaveMenu(potion);
+    }
 }
 
 async function isValidStudent(studentId) {
@@ -107,6 +110,50 @@ function displayIngredients(ingredients) {
     return ingredientsList;
 }
 
+function displaySaveMenu(potion) {
+    const resultsContainer = document.querySelector("#results");
+    const saveRecipeContainer = document.createElement("div");
+    saveRecipeContainer.classList.add("message");
+    saveRecipeContainer.innerHTML = `
+        <p>You discovered a new recipe! Do you want to save it?</p>
+        <form>
+            <label for="recipe-name">Recipe name: </label>
+            <input type="text" id="recipe-name"><br>
+            <input type="button" class="button" id="save-discovered-recipe" value="Save recipe">
+            <input type="button" class="button" id="reset-discovered-recipe" value="Reset">
+        </form>
+    `;
+    resultsContainer.append(saveRecipeContainer);
+
+    const saveDiscoveredRecipeButton = document.querySelector("#save-discovered-recipe");
+    const resetDiscoveredRecipeButton = document.querySelector("#reset-discovered-recipe");
+    saveDiscoveredRecipeButton.addEventListener("click", () => saveRecipe(potion));
+    resetDiscoveredRecipeButton.addEventListener("click", resetPage);
+}
+
+async function saveRecipe(potion) {
+    const studentId = document.querySelector("#student-id").value;
+    const potionName = document.querySelector("#recipe-name").value;
+
+    const ingredients = [];
+    potion.ingredients.forEach(ingredient => {
+        ingredients.push(ingredient.name);
+    });
+
+    const data = {
+        "potionName": potionName,
+        "studentId": studentId,
+        "ingredients": ingredients
+    };
+    await sendData("http://localhost:8080/potions", "POST", data);
+    const messageContainer = document.querySelector(".message");
+    messageContainer.textContent = "Recipe saved!";
+}
+
+function resetPage() {
+    console.log("reset");
+}
+
 async function displaySimilarRecipes() {
     if (potionId === null) {
         displayMessage(`
@@ -117,7 +164,6 @@ async function displaySimilarRecipes() {
     }
 
     const similarRecipes = await getData(`http://localhost:8080/potions/${potionId}/help`);
-    console.log(similarRecipes);
 
     if (similarRecipes.length === 0){
         displayMessage("No similar recipes found!");
