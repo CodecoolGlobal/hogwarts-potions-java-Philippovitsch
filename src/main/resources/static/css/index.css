@@ -68,6 +68,10 @@ body {
     width: 200px;
 }
 
+.ml-10 {
+    margin-left: 10px;
+}
+
 .message {
     text-align: center;
     font-style: italic;
