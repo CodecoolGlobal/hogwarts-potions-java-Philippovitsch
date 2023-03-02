@@ -85,10 +85,11 @@ public class PotionService {
         BrewingStatus brewingStatus = getBrewingStatus(potion);
         potion.setBrewingStatus(brewingStatus);
 
+        Recipe recipe = null;
         if (brewingStatus == BrewingStatus.REPLICA) {
-            Recipe recipe = recipeService.getRecipeByIngredients(existingIngredients);
-            potion.setRecipe(recipe);
+            recipe = recipeService.getRecipeByIngredients(existingIngredients);
         }
+        potion.setRecipe(recipe);
 
         potionRepository.save(potion);
 
