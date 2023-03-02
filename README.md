@@ -55,22 +55,62 @@ Recommended IDE: <b>IntelliJ IDEA</b>
   - Students:
     - `/student`, method: `GET`: Get all students
     - `/student`, method: `POST`: Add new student
+      ```json
+      {
+          "name": "Harry Potter",
+          "houseType": "GRYFFINDOR",
+          "petType": "OWL"
+      }
+      ```
     - `/student/{studentId}`, method: `GET`: Get student by student ID
     - `/student/{studentId}`, method: `PUT`: Update student by student ID
+      ```json
+      {
+          "name": "Hermine Granger",
+          "houseType": "HUFFLEPUFF",
+          "petType": "NONE"
+      }
+      ```
     - `/student/{studentId}`, method: `DELETE`: Delete student by student ID
   - Rooms:
     - `/room`, method: `GET`: Get all rooms
     - `/room`, method: `POST`: Add new room
+      ```json
+      {
+          "name": "Hufflepuff Hut",
+          "capacity": 2,
+          "residents": null
+      }
+      ```
     - `/room/{roomId}`, method: `GET`: Get room by room ID
     - `/room/{roomId}`, method: `PUT`: Update room by room ID
+      ```json
+      {
+          "name": "Gryffindor Shack",
+          "capacity": 3,
+          "residents": null
+      }
+      ```
     - `/room/{roomId}`, method: `DELETE`: Delete room by room ID
     - `/room/rat-owners`, method: `GET`: Get rooms where no cat or owl lives
   - Potions:
     - `/potions`, method: `GET`: Get all potions
     - `/potions`, method: `POST`: Save new discovered potion as recipe
+      ```json
+      {
+          "potionName": "Sleeping Potion",
+          "studentId": 1,
+          "ingredients": ["HorseHair", "Avocado", "UnicornHair", "DragonLiver", "Bone"]
+      }
+      ```
     - `/potions/{studentId}`, method: `GET`: Get all potions from a certain student by student ID
-    - `/potions/brew/{studentId}`, method: `POST`: Create new potion by student ID
+    - `/potions/brew/{studentId}`, method: `POST`: Create new empty potion by student ID
     - `/potions/{potionId}/add`, method: `PUT`: Add ingredient to potion by potion ID
+      ```json
+      {
+          "ingredientName": "HorseHair"
+      }
+      ```
     - `/potions/{potionId}/help`, method: `GET`: Get recipes with similar ingredients by potion ID
     - `/potions/{potionId}`, method: `DELETE`: Delete potion by potion ID
   - Ingredients:
