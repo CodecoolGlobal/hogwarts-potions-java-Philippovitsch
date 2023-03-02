@@ -73,3 +73,15 @@ Recommended IDE: <b>IntelliJ IDEA</b>
     - `/ingredients`, method: `GET`: Get all ingredients
   - Recipes:
     - `/recipes`, method: `GET`: Get all recipes
+
+
+## Screenshots
+
+Index page:
+![index_page](https://user-images.githubusercontent.com/16825493/222499772-6cdeac5c-60d2-4bf9-a3a7-5833c122efdf.png)
+
+Store a newly created potion as recipe:
+![create_new_potion](https://user-images.githubusercontent.com/16825493/222499903-09612e3d-beb3-404a-8eb1-a2d3e101532f.png)
+
+Show recipes with similar ingredients:
+![similar_recipes](https://user-images.githubusercontent.com/16825493/222500606-2b3abb90-a84b-46b2-b67a-42f25a7d0069.png)
