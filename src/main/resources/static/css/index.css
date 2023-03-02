@@ -72,3 +72,9 @@ body {
     margin-top: 15px;
     margin-bottom: 15px;
 }
+
+.recipe {
+    margin: 10px 0 10px 0;
+    padding: 5px 5px 5px 5px;
+    background: rgba(152, 175, 199, 0.4);
+}

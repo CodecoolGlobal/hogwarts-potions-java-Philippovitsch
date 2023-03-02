@@ -68,7 +68,6 @@ async function addIngredient() {
     const potion = await sendData(`http://localhost:8080/potions/${potionId}/add`, "PUT", data);
 
     displayPotion(potion);
-    displayPotionIngredients(potion.ingredients);
 }
 
 async function isValidStudent(studentId) {
@@ -87,27 +86,56 @@ async function createNewPotion(studentId) {
 
 function displayPotion(potion) {
     const resultsContainer = document.querySelector("#results");
-    resultsContainer.innerHTML = `
+    const potionContainer = document.createElement("div");
+    potionContainer.classList.add("recipe");
+    potionContainer.innerHTML = `
         <p><b>${potion.name}</b> (ID #${potion.id}):</p>
         <p><em>Brewer:</em> ${potion.brewer.name}</p>
         <p><em>Brewing status:</em> ${potion.brewingStatus}</p>
         <p><em>Ingredients:</em></p>
-        <ul id="potion-ingredients"></ul>
+        <ul>${displayIngredients(potion.ingredients)}</ul>
     `;
+    resultsContainer.textContent = "";
+    resultsContainer.append(potionContainer);
 }
 
-function displayPotionIngredients(ingredients) {
-    const ingredientsList = document.querySelector("#potion-ingredients");
-    ingredientsList.textContent = "";
+function displayIngredients(ingredients) {
+    let ingredientsList = "";
     ingredients.forEach(ingredient => {
-        const ingredientsEntry = document.createElement("li");
-        ingredientsEntry.textContent = ingredient.name;
-        ingredientsList.append(ingredientsEntry);
+        ingredientsList += `<li>${ingredient.name}</li>`;
     });
+    return ingredientsList;
 }
 
-function displaySimilarRecipes() {
-    console.log("help");
+async function displaySimilarRecipes() {
+    if (potionId === null) {
+        displayMessage(`
+            You have to start brewing a potion first!
+            Please enter a student id and choose an ingredient!
+        `);
+        return;
+    }
+
+    const similarRecipes = await getData(`http://localhost:8080/potions/${potionId}/help`);
+    console.log(similarRecipes);
+
+    if (similarRecipes.length === 0){
+        displayMessage("No similar recipes found!");
+        return;
+    }
+
+    const resultsContainer = document.querySelector("#results");
+    resultsContainer.innerHTML = "<p><b>Similar recipes:</b></p>";
+    similarRecipes.forEach(recipe => {
+        const recipeContainer = document.createElement("div");
+        recipeContainer.classList.add("recipe");
+        recipeContainer.innerHTML = `
+            <p>Name: ${recipe.name}</p>
+            <p>Ingredients:</p>
+            <ul>${displayIngredients(recipe.ingredients)}</ul>
+        `;
+        resultsContainer.append(recipeContainer);
+    });
 }
 
 init();
