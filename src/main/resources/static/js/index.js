@@ -4,12 +4,20 @@ async function init() {
     const addIngredientButton = document.querySelector("#add-ingredient");
     const helpButton = document.querySelector("#help");
     const deleteButton = document.querySelector("#delete");
+    const studentIdInput = document.querySelector("#student-id")
     addIngredientButton.addEventListener("click", addIngredient);
     helpButton.addEventListener("click", displaySimilarRecipes);
     deleteButton.addEventListener("click", () => resetPage(true));
+    studentIdInput.addEventListener("keypress", (event) => preventEnterInForm(event));
     displayMessage("Create a potion by entering a student id and adding the first ingredient.");
     const ingredients = await getData("http://localhost:8080/ingredients");
     displayAvailableIngredients(ingredients);
+}
+
+function preventEnterInForm(event) {
+    if (event.key === "Enter") {
+        event.preventDefault();
+    }
 }
 
 async function getData(url) {
