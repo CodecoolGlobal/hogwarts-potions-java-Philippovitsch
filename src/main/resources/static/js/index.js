@@ -130,7 +130,7 @@ function displaySaveMenu(potion) {
             <label for="recipe-name">Recipe name: </label>
             <input type="text" id="recipe-name"><br>
             <input type="button" class="button" id="save-discovered-recipe" value="Save recipe">
-            <input type="button" class="button" id="reset-discovered-recipe" value="Reset">
+            <input type="button" class="button" id="reset-discovered-recipe" value="Create new potion">
         </form>
     `;
     resultsContainer.append(saveRecipeContainer);
@@ -156,8 +156,17 @@ async function saveRecipe(potion) {
         "ingredients": ingredients
     };
     await sendData("http://localhost:8080/potions", "POST", data);
+
     const messageContainer = document.querySelector(".message");
-    messageContainer.textContent = "Recipe saved!";
+    messageContainer.innerHTML = `
+        <p>Recipe saved!</p>
+        <form>
+            <input type="button" class="button" id="reset-discovered-recipe" value="Create new potion">
+        </form>
+    `;
+
+    const resetButton = document.querySelector("#reset-discovered-recipe");
+    resetButton.addEventListener("click", () => resetPage(false));
 }
 
 async function resetPage(deletePotion) {
