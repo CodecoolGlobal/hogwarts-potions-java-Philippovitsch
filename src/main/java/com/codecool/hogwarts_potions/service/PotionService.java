@@ -3,6 +3,7 @@ package com.codecool.hogwarts_potions.service;
 import com.codecool.hogwarts_potions.model.*;
 import com.codecool.hogwarts_potions.model.dto.IngredientDTO;
 import com.codecool.hogwarts_potions.model.dto.PotionDTO;
+import com.codecool.hogwarts_potions.service.constants.BrewingServiceConstants;
 import com.codecool.hogwarts_potions.service.repositories.PotionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -127,7 +128,7 @@ public class PotionService {
     }
 
     private BrewingStatus getBrewingStatus(Potion potion) {
-        if (potion.getIngredients().size() < 5) {
+        if (potion.getIngredients().size() < BrewingServiceConstants.MAX_INGREDIENTS_FOR_POTIONS) {
             return BrewingStatus.BREW;
         } else if (isKnownRecipe(potion.getIngredients())) {
             return BrewingStatus.REPLICA;
