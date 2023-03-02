@@ -1,6 +1,7 @@
 # Hogwarts Potions
 
 This is a solo project from the 10th out of 12 month of the `Advanced - Java Spring` module of the Codecool curriculum.
+
 It is a Harry Potter themed project, where you can manage the students and rooms of the Hogwarts school. Furthermore,
 students can take notes of their potions while they are brewing and look for known brewing recipes.
 
@@ -27,14 +28,22 @@ students can take notes of their potions while they are brewing and look for kno
 > - Spring database connection
 > - Spring JPA repositories
 
-## Installation instructions
+## Run locally
 
-Recommended IDE: <b>IntelliJ IDEA</b>
+Open Terminal and clone the project
+```ssh
+git clone git@github.com:CodecoolGlobal/hogwarts-potions-java-Philippovitsch.git
+```
 
-- Clone or download repo
-- Open project folder in IDE
-- Wait until dependencies are synced
-- Run Application
+Go to the project directory
+```ssh
+cd hogwarts-potions-java-Philippovitsch
+```
+
+Start the application
+```ssh
+mvn spring-boot:run 
+```
 
 ## Frontend description
 
